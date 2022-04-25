@@ -57,26 +57,25 @@ public class GameLoop {
 			
 			Input();
 			Update(deltaTime);
-			if(soma <= 1.0f)
+			
+			if (soma < 1.0f)
 			{
-				if(sync1 < SYNC)
+				for (int i = 0; i < SYNC; i++)
 				{
-					sync1 += 1;
-					FixedUpdate(deltaTime);
 					
+					FixedUpdate(deltaTime);
+					if(i >= SYNC - 1)
+					{
+						soma = 0.0f;
+					}
 				}
-				
-			}else
-				{
-					soma = 0.0f;
-					sync1 = 0;
-				}
+			}
+			
 			Render();
 			
 			long end = System.currentTimeMillis();
 			deltaTime = (float) (end - start)/ 1000.0f;
-			soma += 0.0001f ;
-			//System.out.println(sync1);
+			soma += deltaTime;
 			
 			
 			
