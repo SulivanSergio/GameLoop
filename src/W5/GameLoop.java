@@ -1,17 +1,39 @@
 package W5;
 
+import java.util.Random;
+
 public class GameLoop {
 	
+	static final int C = 6;
+	static final int T = 6;
 	
 	float position = 0;
 	float speed = 10.0f;
 	final int SYNC = 30;
 	
 	int sync1 = 0;
-	float soma = 0.0f;
-
+	
+	static int carros[] = new int[C];
+	
+	static ThreadCarros thread[] = new ThreadCarros[T];
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		Random random = new Random();
+		
+		for(int i =0; i< C; i++)
+		{
+			
+			carros[i] = i;
+			
+		}
+		
+		for(int i = 0; i< T;i++)
+		{
+			thread[i] = new ThreadCarros(carros,random.nextFloat(5),10f,i );
+			thread[i].start();
+			
+		}
 		
 		GameLoop gl = new GameLoop();
 		gl.Start();
@@ -32,7 +54,7 @@ public class GameLoop {
 	}
 	public void FixedUpdate(float fixedDeltaTime)
 	{
-		position = position + speed * fixedDeltaTime;
+		
 		
 	}
 	
