@@ -33,13 +33,13 @@ public class GameLoop {
 	public void FixedUpdate(float fixedDeltaTime)
 	{
 		position = position + speed * fixedDeltaTime;
-		System.out.println("Fisica do jogo: " + position);
+		
 	}
 	
 	public void Render()
 	{
 		
-		//System.out.println("Fisica do jogo: " + position);
+		
 		
 	}
 	
@@ -58,24 +58,13 @@ public class GameLoop {
 			Input();
 			Update(deltaTime);
 			
-			if (soma < 1.0f)
-			{
-				for (int i = 0; i < SYNC; i++)
-				{
-					
-					FixedUpdate(deltaTime);
-					if(i >= SYNC - 1)
-					{
-						soma = 0.0f;
-					}
-				}
-			}
+			
 			
 			Render();
 			
 			long end = System.currentTimeMillis();
 			deltaTime = (float) (end - start)/ 1000.0f;
-			soma += deltaTime;
+		
 			
 			
 			
