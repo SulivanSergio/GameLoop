@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class GameLoop {
 	
-	static final int C = 6;
-	static final int T = 6;
+	static final int C = 2;
+	static final int T = 2;
 	
 	float position = 0;
 	float speed = 10.0f;
