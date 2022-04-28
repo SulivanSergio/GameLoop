@@ -4,14 +4,13 @@ import java.util.Random;
 
 public class GameLoop {
 	
-	static final int C = 2;
-	static final int T = 2;
+	static final int C = 6;
+	static final int T = 6;
 	
-	float position = 0;
-	float speed = 10.0f;
+	
 	final int SYNC = 30;
 	
-	int sync1 = 0;
+	
 	
 	static int carros[] = new int[C];
 	
@@ -20,6 +19,7 @@ public class GameLoop {
 	public static void main(String[] args) {
 		
 		Random random = new Random();
+		GameLoop gl = new GameLoop();
 		
 		for(int i =0; i< C; i++)
 		{
@@ -30,13 +30,12 @@ public class GameLoop {
 		
 		for(int i = 0; i< T;i++)
 		{
-			thread[i] = new ThreadCarros(carros,random.nextFloat(5),10f,i );
+			thread[i] = new ThreadCarros(carros,random.nextFloat(5),10f, gl);
 			thread[i].start();
 			
 		}
 		
-		GameLoop gl = new GameLoop();
-		gl.Start();
+		
 		
 	}
 	
@@ -48,6 +47,41 @@ public class GameLoop {
 	
 	public void Update(float deltaTime)
 	{
+		
+		for(int i = 0; i< T;i++)
+		{
+			
+			try
+			{
+				if(thread[i].isInterrupted() == false)
+				{
+					thread[i].position += thread[i].speed * deltaTime;
+					
+					
+				}
+				
+				if (thread[i].position > thread[i].LinhaChegada)
+				{
+					if(thread[i].isInterrupted() == false)
+					{
+						
+						System.out.println("Carro_0" + carros[i] + "      Metros que ele percorreu: " + thread[i].position);
+						thread[i].interrupt();
+						//thread[i].stop();
+						//thread[i].join();
+					}
+				}
+			}
+			
+			catch(Exception e)
+			{
+				System.out.println("Thread ainda não foi criada no GameLoop");
+			}
+			
+			
+		}
+		
+		
 		
 		
 		
